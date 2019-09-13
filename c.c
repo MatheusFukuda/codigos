@@ -4,71 +4,104 @@
 #include<ctype.h>
 
 typedef struct agenda{
-        char nome[90];
-        int telefone;
-        struct agenda *prox;
-    }agenda;
+    char nome[10];
+    int telefone;
+}agenda;
 
-struct agenda *cria (void);
-void insere_nomes(agenda *idk);
-void lista_agenda(agenda *idk);
+typedef struct var{
+    int i, Npessoas, op;
+}var;
 
-int main(){
+void *pbuffer;
+var *aux;
+agenda *aponta;
 
-    agenda *idk;
-    idk = cria();
+void Insere ();
+void Imprimir ();
 
-    int op;
+int main (){
 
-    do{
-        printf("Digite uma opcao: \n1: Grava um nome\n2: Lista os nomes gravados\n3: SAIR\nOP: ");
-        scanf("%d", &op);
-        switch(op){
-            case 1: insere_nomes(idk);
+    pbuffer = malloc(sizeof(var));
+    if(pbuffer == NULL){
+        printf("\nERRO\n");
+    }
+    aux = pbuffer;
+    aux->op = 0;
+    aux->Npessoas = 0;
+    aux->i = 0;
+
+
+    while(284){
+        printf("\n");
+        printf("Agenda: \n");
+        printf("1: Insere\n");
+        printf("2: Lista\n");
+        printf("3: Busca\n");
+        printf("4: Apaga\n");
+        printf("5: SAIR\n");
+        printf("Op.: ");
+        scanf("%d", &aux->op);
+        getchar();
+
+        switch (aux->op){
+            case 1: (aux->Npessoas)++;
+            Insere();
             break;
-            case 2: lista_agenda(idk);
+            case 2: if(aux->Npessoas == 0){
+                printf("\n");
+                printf("VAZIO\n");
+            }else{
+                Imprimir();
+            }
             break;
-            case 3: printf("\n-----FIM-----\n");
+            case 3:
             break;
-            default: printf("ERRO\n");
+            case 4:
+            break;
+            case 5:
+            printf("\n");
+            printf("----------------SAINDO----------------\n");
+            printf("\n");
+            exit(0); 
+            free(pbuffer);
+            break;
+            default:
+            printf("\n");
+            printf("== Op. Invalido ==\n");
+            printf("\n");
             break;
         }
-    }while(op != 3);
+    }
     return 0;
 }
-struct agenda *cria (void){
-    agenda *cab;
-    
-    cab=(agenda *)malloc(sizeof(agenda));
-    cab->prox = NULL;
-
-    return cab;
+void Insere (){
+    pbuffer = realloc(pbuffer, sizeof(var) + sizeof(agenda)*(aux->Npessoas));
+    if(pbuffer == NULL){
+        printf("\n");
+        printf("ERRO\n");
+    }
+    aux = pbuffer;
+    aponta = pbuffer + sizeof(var) + sizeof(agenda)*(aux->Npessoas) - sizeof(agenda);
+    printf("\n");
+    printf("----------------ADICIONANDO PESSOAS----------------\n\n\n");
+    printf("Digite um nome: ");
+    scanf("%s", aponta->nome);
+    printf("\n");
+    printf("Digite um telefone: ");
+    scanf("%d", &aponta->telefone);
 }
 
-void insere_nomes(agenda *idk){
-    int i = 0;
-    agenda *ini, *fim;
-
-    ini=(agenda *)malloc(sizeof(agenda));
-    printf("nome: ");
-    scanf("%s", ini->nome);
-    printf("telefone: ");
-    scanf("%d", &ini->telefone);
-    for(fim = idk; fim->prox != NULL; fim = fim->prox);
-    ini->prox = fim->prox;
-    fim->prox = ini;
+void Imprimir (){
+    aponta = pbuffer + sizeof(var);
+    for (aux->i = 0; (aux->i)<(aux->Npessoas); (aux->i)++){
+        printf("----------------LISTANDO PESSOAS----------------\n\n");
+        printf("Nome: %s\n", aponta->nome);
+        printf("Telefone: %d\n", aponta->telefone);
+        printf("------------------------------------------------\n\n");
+        aponta++;
+    }
 }
-void lista_agenda (agenda *idk){
-    agenda *tsipn;
 
-        printf("\n");
-		printf("nome: %s\n", tsipn->nome);
-		printf("telefone: %d\n", tsipn->telefone);
-        printf("\n");
+void Buscar (){
 
-	for(tsipn = idk->prox; idk->prox != NULL; idk = idk->prox)
-        printf("\n");
-		printf("nome: %s\n", tsipn->nome);
-		printf("telefone: %d\n", tsipn->telefone);
-        printf("\n");
 }

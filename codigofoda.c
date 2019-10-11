@@ -22,6 +22,9 @@ void Imprimir ();
 void Buscar ();
 void Deletar ();
 void Bubble ();
+void Selection ();
+void Insertion ();
+void Quick ();
 
 int main (){
 
@@ -44,7 +47,11 @@ int main (){
         printf("3: Busca\n");
         printf("4: Apaga\n");
         printf("5: SAIR\n");
-        printf("6: Ordena BUbble\n");
+        printf("6: Ordena Bubble\n");
+        printf("7: Ordena Selection\n");
+        printf("8: Ordena Insertion\n");
+        printf("9: Ordena Quick\n");
+        printf("10: DELETAR AGENDA\n");
         printf("Op.: ");
         scanf("%d", &aux->op);
         getchar();
@@ -81,6 +88,14 @@ int main (){
             free(pbuffer);
             break;
             case 6: Bubble();
+            break;
+            case 7: Selection();
+            break;
+            case 8: Insertion();
+            break;
+            case 9: Quick();
+            break;
+            case 10: free(pbuffer);
             break;
             default:
             printf("\n");
@@ -199,3 +214,36 @@ void Bubble(){
     }
 }
 
+void Selection(){
+    aponta = pbuffer + sizeof(var);
+    apontaaux = pbuffer + sizeof(var);
+    
+
+    for((aux->i) = 0; (aux->i) < (aux->Npessoas); (aux->i)++){
+        aponta = pbuffer + sizeof(var);
+        aponta = aponta + aux->op;
+        apontaaux = pbuffer + sizeof(var);
+        for((aux->j) = ((aux->i)+1); (aux->j) < (aux->Npessoas); (aux->j)++){
+            aponta = pbuffer + sizeof(var);
+            apontaaux = pbuffer + sizeof(var);
+            if(aux->j < aux->op){
+                aux->op = aux->j;
+            }
+            if(aux->i != aux->op){
+                strcpy(aux->comp, aponta->nome);
+                strcpy(aponta->nome, apontaaux->nome);
+                strcpy(apontaaux->nome, aux->comp);
+
+                aux->compint = aponta->telefone;
+                aponta->telefone = apontaaux->telefone;
+                apontaaux->telefone = aux->compint;
+            }
+        }
+    }
+}
+
+void Insertion (){
+}
+
+void Quick (){
+}

@@ -8,7 +8,7 @@ typedef struct agenda{
 }agenda;
 
 typedef struct var{
-    int i, Npessoas, op;
+    int i, Npessoas, op, j, compint;
     char comp[10];
 }var;
 
@@ -21,6 +21,7 @@ void Insere ();
 void Imprimir ();
 void Buscar ();
 void Deletar ();
+void Bubble ();
 
 int main (){
 
@@ -32,6 +33,7 @@ int main (){
     aux->op = 0;
     aux->Npessoas = 0;
     aux->i = 0;
+    aux->j = 0;
 
 
     while(284){
@@ -42,6 +44,7 @@ int main (){
         printf("3: Busca\n");
         printf("4: Apaga\n");
         printf("5: SAIR\n");
+        printf("6: Ordena BUbble\n");
         printf("Op.: ");
         scanf("%d", &aux->op);
         getchar();
@@ -76,6 +79,8 @@ int main (){
             printf("\n");
             exit(0); 
             free(pbuffer);
+            break;
+            case 6: Bubble();
             break;
             default:
             printf("\n");
@@ -162,4 +167,35 @@ void Deletar(){
 	}
 }
 
+void Bubble(){
+    aponta = pbuffer + sizeof(var);
+    apontaaux = pbuffer + sizeof(var);
+
+    aux->op = 0;
+
+    for(aux->i = 0; (aux->i) < (aux->Npessoas); (aux->i)++){
+        for(aux->j = 0; (aux->j) < ((aux->Npessoas) - 1); (aux->j)++){
+            aponta = pbuffer + sizeof(var);
+            apontaaux = pbuffer + sizeof(var);
+            aponta += aux->j;
+            apontaaux += aux->j + 1;
+
+            if(strcmp(aponta->nome, apontaaux->nome) > 0){
+                strcpy(aux->comp, aponta->nome);
+                strcpy(aponta->nome, apontaaux->nome);
+                strcpy(apontaaux->nome, aux->comp);
+
+                aux->compint = aponta->telefone;
+                aponta->telefone = apontaaux->telefone;
+                apontaaux->telefone = aux->compint;
+                aux->op = 1;
+            }
+        }
+        if(aux->op == 0){
+            printf("\n");
+            printf("JA ESTA ORDENADO\n");
+            return;
+        }
+    }
+}
 
